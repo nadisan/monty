@@ -89,8 +89,13 @@ int main(int argc, char *argv[])
 
 			if (strcmp(fun, "push") == 0)
 				push(&stack, line_number);
-			if (strcmp(fun, "pall") == 0)
+			else if (strcmp(fun, "pall") == 0)
 				pall(&stack, line_number);
+			else
+			{
+				fprintf(stderr, "L%d: unknown instruction %s,\n", line_number,fun);
+				exit(EXIT_FAILURE);
+			}
 		}
 		fclose(pFile);
 	}
