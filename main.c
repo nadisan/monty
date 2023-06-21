@@ -82,9 +82,11 @@ int main(int argc, char *argv[])
 	FILE *pFile;
 	char buffer[100];
 	stack_t *stack = NULL;
+	stack_t *temp = NULL;
 	/*char *opcode = NULL;	*/
 	unsigned int line_number = 0;
 	char *fun;
+
 
 	if (argc != 2)
 	{	fprintf(stderr, "USAGE: monty file\n");
@@ -118,6 +120,12 @@ int main(int argc, char *argv[])
 			*/
 		}
 		fclose(pFile);
+	}
+	while (stack)
+	{
+		temp = stack;
+		stack = stack->next;
+		free(temp);
 	}
 	return (0);
 }
