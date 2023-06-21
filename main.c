@@ -34,23 +34,19 @@ void fre(stack_t *stack)
 
 void ex_inst(instruction_t *in, char *buf, unsigned int l_num, stack_t **stack)
 {
-	unsigned int i = 0, j = 0;
-	char *fun[3];
+	unsigned int i = 0;
+	char *fun[2];
 
-	fun[j] = strtok(buf, " \n");
+	fun[0] = strtok(buf, " \n");
+	fun[1] = strtok(NULL, " \n");
 
-	while (fun[j] && j < 2)
-	{
-		j++;
-		fun[j] = strtok(NULL, " \n");
-	}
 
 	while (in[i].opcode != NULL)
 	{
 		if (strcmp(in[i].opcode, fun[0]) == 0)
 		{
 
-			if (i == 0 && j != 2)
+			if (i == 0 && fun[1] == NULL)
 			{
 				{
 					fprintf(stderr, "L%u: usage: push integer\n", l_num);
@@ -79,7 +75,7 @@ void ex_inst(instruction_t *in, char *buf, unsigned int l_num, stack_t **stack)
 int main(int argc, char *argv[])
 {
 	FILE *pFile;
-	char buf[100];
+	char buf[1000];
 	stack_t *stack = NULL;
 
 	/*char *opcode = NULL;	*/
