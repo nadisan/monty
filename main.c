@@ -14,14 +14,14 @@ int main(int argc, char *argv[])
 	char *fun;
 
 	if (argc != 2)
-	{	/*perror("USAGE: monty file\n");*/
+	{	perror("USAGE: monty file\n");
 		exit(EXIT_FAILURE);
 	}
 	else
 		pFile = fopen(argv[1], "r");
 	if (pFile == NULL)
 	{
-		/*fprintf(stderr, "Error: Can't open file %s\n", argv[1]);*/
+		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
 		exit(EXIT_FAILURE);
 	}
 	else
