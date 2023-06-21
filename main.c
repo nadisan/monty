@@ -39,40 +39,40 @@ void push(stack_t **stack, unsigned int line_number)
 void pall(stack_t **stack, unsigned int line_number)
 {
 	stack_t *current = *stack;
-	unsigned int i = 0;
 
-	if (line_number > 1)
+
+	while (current != NULL && line_number != 0)
 	{
-		while (current != NULL)
-		{
-			printf("%d\n", current->n);
-			current = current->next;
-			i++;
-		}
+		printf("%d\n", current->n);
+		current = current->next;
 	}
 }
 
-void exec_inst(instruction_t *instructions, char *buffer, unsigned int line_number,  stack_t *stack)
+void exec_inst(instruction_t *instructions, char *buffer, unsigned int line_number, stack_t **stack)
 {
-	int i = 0;
+	int i = 0, j = 0;
 	char *fun[3];
 
-	fun[0] = strtok(buffer, " \n");
-        fun[1] = (strtok(NULL, " \n"));
-        fun[2] = strtok(NULL, "\n");
-
+	fun[j] = strtok(buffer, " \n");
+	
+	while (fun[j] && j < 2)
+	{	
+		j++;
+		fun[j] = strtok(NULL, " \n");
+	}
+	
 	while (instructions[i].opcode != NULL)
 	{
-		if (strcmp(instructions[i].opcode, fun[1]) == 0)
+		if (strcmp(instructions[i].opcode, fun[0]) == 0)
 		{
-			if (i == 0)
+
+			if (i == 0 && j != 2)
 			{
-				if (fun[1] == NULL || fun[2] != NULL)
-				{	fprintf(stderr, "L%u: usage: push integer", line_number);
+				{	fprintf(stderr, "L%u: usage: push integer\n", line_number);
                                 	exit(EXIT_FAILURE);
 				}
 			}
-			instructions[i].f(&stack, atoi(fun[1]));
+			instructions[i].f(stack, line_number);
 			return;
 		}
 		i++;
@@ -122,7 +122,7 @@ int main(int argc, char *argv[])
 			if (fgets(buffer, 100, pFile) == NULL)
 				break;
 
-			exec_inst(instructions, buffer, line_number, stack);
+			exec_inst(instructions, buffer, line_number, &stack);
 			/*if (strcmp(fun, "push") == 0)
 			*	push(&stack, line_number);
 			*else if (strcmp(fun, "pall") == 0)
