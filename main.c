@@ -32,6 +32,7 @@ int main(int argc, char *argv[])
 			if (fgets(buffer, 100, pFile) == NULL)
 				break;
 			fun = strtok(buffer, " \n");
+			printf("%s", fun);
 			/*if (strcmp(fun, "push") == 0;
 				push(&stack, line_number);
 			if (strcmp(fun, "pall") == 0;
