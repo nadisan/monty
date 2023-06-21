@@ -50,6 +50,25 @@ void pall(stack_t **stack, unsigned int line_number)
 }
 
 
+instruction_t instructions[] = {
+    {"push", push},
+    {"pall", pall},
+    {NULL, NULL}
+};
+
+void execute_instructions(instruction_t *instructions, char *instruction_name, stack_t **stack, unsigned int line_number) {
+    int i = 0;
+    while (instructions[i].opcode != NULL) {
+        if (strcmp(instructions[i].opcode, instruction_name) == 0) {
+            instructions[i].f(stack, line_number);
+            return;
+        }
+        i++;
+    }
+    fprintf(stderr, "L%u: unknown instruction %s\n", line_number, instruction_name);
+    exit(EXIT_FAILURE);
+}
+
 /**
  * main- executes command from argument
  * @argc: number of command
@@ -86,16 +105,17 @@ int main(int argc, char *argv[])
 			if (fgets(buffer, 100, pFile) == NULL)
 				break;
 			fun = strtok(buffer, " \n");
-
-			if (strcmp(fun, "push") == 0)
-				push(&stack, line_number);
-			else if (strcmp(fun, "pall") == 0)
-				pall(&stack, line_number);
-			else
-			{
-				fprintf(stderr, "L%d: unknown instruction %s,\n", line_number, fun);
-				exit(EXIT_FAILURE);
-			}
+			execute_instructions(instructions, fun, &stack, line_number);
+			/*if (strcmp(fun, "push") == 0)
+			*	push(&stack, line_number);
+			*else if (strcmp(fun, "pall") == 0)
+			*	pall(&stack, line_number);
+			* else
+			* {
+			*	fprintf(stderr, "L%d: unknown instruction %s,\n", line_number, fun);
+			*	exit(EXIT_FAILURE);
+			*}
+			*/
 		}
 		fclose(pFile);
 	}
