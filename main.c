@@ -93,7 +93,7 @@ int main(int argc, char *argv[])
 				pall(&stack, line_number);
 			else
 			{
-				fprintf(stderr, "L%d: unknown instruction %s,\n", line_number,fun);
+				fprintf(stderr, "L%d: unknown instruction %s,\n", line_number, fun);
 				exit(EXIT_FAILURE);
 			}
 		}
