@@ -4,6 +4,14 @@
 #include <stdlib.h>
 
 
+/**
+ * main- executes command from argument
+ * @argc: number of command
+ * @argv: operation and command file
+ * Return: 0 on success
+ *
+ */
+
 int main(int argc, char *argv[])
 {
 	FILE *pFile;
@@ -33,10 +41,6 @@ int main(int argc, char *argv[])
 				break;
 			fun = strtok(buffer, " \n");
 			printf("%s", fun);
-			/*if (strcmp(fun, "push") == 0;
-				push(&stack, line_number);
-			if (strcmp(fun, "pall") == 0;
-				pall(&stack);*/
 		}
 		fclose(pFile);
 	}
