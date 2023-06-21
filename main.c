@@ -4,17 +4,22 @@
 #include <stdlib.h>
 #include <ctype.h>
 
+
+/**
+ * fre - prints all stack elements
+ * @stack: stack linked list
+ */
 void fre(stack_t *stack)
 {
-stack_t *temp = NULL;
+	stack_t *temp = NULL;
 
-while (stack)
-{
-temp = stack;
-stack = stack->next;
-free(temp);
-}
-stack = NULL;
+	while (stack)
+	{
+		temp = stack;
+		stack = stack->next;
+		free(temp);
+	}
+	stack = NULL;
 }
 
 
@@ -27,7 +32,7 @@ stack = NULL;
  *
  */
 
-int ex_inst(instruction_t *in, char *buf, unsigned int l_num, stack_t **stack)
+void ex_inst(instruction_t *in, char *buf, unsigned int l_num, stack_t **stack)
 {
 	unsigned int i = 0, j = 0;
 	char *fun[3];
@@ -45,21 +50,21 @@ int ex_inst(instruction_t *in, char *buf, unsigned int l_num, stack_t **stack)
 		if (strcmp(in[i].opcode, fun[0]) == 0)
 		{
 
-			if ((i == 0 && j != 2 ) || ((i == 0) && !isdigit(fun[1][0])))
+			if (i == 0 && j != 2)
 			{
 				{
 					fprintf(stderr, "L%u: usage: push integer\n", l_num);
-					exit(EXIT_FAILURE);		
+					exit(EXIT_FAILURE);
 				}
 			}
 			in[i].f(stack, l_num);
-			return (0);
+			return;
 		}
 		i++;
 	}
 	fprintf(stderr, "L%u: unknown instruction %s\n", l_num, fun[0]);
 	fre(*stack);
-	return(1);
+	exit(EXIT_FAILURE);
 }
 
 
