@@ -50,6 +50,8 @@ void ex_inst(instruction_t *in, char *buf, unsigned int l_num, stack_t **stack)
 			{
 				{
 					fprintf(stderr, "L%u: usage: push integer\n", l_num);
+					free(fun[1]);
+					free(fun[0]);
 					exit(EXIT_FAILURE);
 				}
 			}
@@ -75,7 +77,7 @@ void ex_inst(instruction_t *in, char *buf, unsigned int l_num, stack_t **stack)
 int main(int argc, char *argv[])
 {
 	FILE *pFile;
-	char buf[1000];
+	char buf[100];
 	stack_t *stack = NULL;
 
 	/*char *opcode = NULL;	*/
@@ -84,6 +86,7 @@ int main(int argc, char *argv[])
 	instruction_t in[] = {
 		{"push", push},
 		{"pall", pall},
+		{"pint", pint},
 		{NULL, NULL}
 	};
 	if (argc != 2)

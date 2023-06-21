@@ -47,3 +47,24 @@ void pall(stack_t **stack, unsigned int l_num)
 		current = current->next;
 	}
 }
+
+/**
+ * pint - prints z first stack elements
+ * @stack: stack linked list
+ * @l_num: number to insert on stack
+ *
+ */
+
+void pint(stack_t **stack, unsigned int l_num)
+{
+	stack_t *current = *stack;
+
+	if (current != NULL && l_num != 0)
+	{
+		fprintf(stdout, "%d\n", current->n);
+		return;
+	}
+	fprintf(stdout, "L%u: can't pint, stack empty", l_num);
+	exit(EXIT_FAILURE);
+
+}
