@@ -70,7 +70,7 @@ void pint(stack_t **stack, unsigned int l_num)
 }
 
 /**
- * pint - prints z first stack elements
+ * nop - does nothing
  * @stack: stack linked list
  * @l_num: number to insert on stack
  *
@@ -78,10 +78,8 @@ void pint(stack_t **stack, unsigned int l_num)
 
 void nop(stack_t **stack, unsigned int l_num)
 {
-        stack_t *current = *stack;
+	stack_t *current = *stack;
 
-        if (current != NULL && l_num != 0)
-                return;
-        return;
-
+	if (current != NULL && l_num != 0)
+		return;
 }
