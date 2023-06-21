@@ -70,16 +70,35 @@ void pint(stack_t **stack, unsigned int l_num)
 }
 
 /**
+ * pop - prints z first stack elements
+ * @stack: stack linked list
+ * @l_num: number to insert on stack
+ *
+ */
+
+void pop(stack_t **stack, unsigned int l_num)
+{
+        stack_t *current = *stack;
+
+        if (current != NULL && l_num != 0)
+        {
+		current = current->next;
+		current->prev = NULL;
+                return;
+        }
+        fprintf(stdout, "L%u: can't pop, stack empty", l_num);
+        exit(EXIT_FAILURE);
+
+}
+
+/**
  * nop - does nothing
  * @stack: stack linked list
  * @l_num: number to insert on stack
  *
  */
 
-void nop(stack_t **stack, unsigned int l_num)
+void nop( )
 {
-	stack_t *current = *stack;
-
-	if (current != NULL && l_num != 0)
-		return;
+	return;
 }
