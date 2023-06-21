@@ -52,20 +52,32 @@ void pall(stack_t **stack, unsigned int line_number)
 	}
 }
 
-void execute_instructions(instruction_t *instructions, char *instruction_name, stack_t **stack, unsigned int line_number)
+void exec_inst(instruction_t *instructions, char *buffer, unsigned int line_number,  stack_t *stack)
 {
 	int i = 0;
+	char *fun[3];
+
+	fun[0] = strtok(buffer, " \n");
+        fun[1] = (strtok(NULL, " \n"));
+        fun[2] = strtok(NULL, "\n");
 
 	while (instructions[i].opcode != NULL)
 	{
-		if (strcmp(instructions[i].opcode, instruction_name) == 0)
+		if (strcmp(instructions[i].opcode, fun[1]) == 0)
 		{
-			instructions[i].f(stack, line_number);
+			if (i == 0)
+			{
+				if (fun[1] == NULL || fun[2] != NULL)
+				{	fprintf(stderr, "L%u: usage: push integer", line_number);
+                                	exit(EXIT_FAILURE);
+				}
+			}
+			instructions[i].f(&stack, atoi(fun[1]));
 			return;
 		}
 		i++;
 	}
-	fprintf(stderr, "L%u: unknown instruction %s\n", line_number, instruction_name);
+	fprintf(stderr, "L%u: unknown instruction %s\n", line_number, fun[1]);
 	exit(EXIT_FAILURE);
 }
 instruction_t instructions[] = {
@@ -89,7 +101,6 @@ int main(int argc, char *argv[])
 	stack_t *temp = NULL;
 	/*char *opcode = NULL;	*/
 	unsigned int line_number = 0;
-	char *fun, *v;
 
 
 	if (argc != 2)
@@ -110,20 +121,8 @@ int main(int argc, char *argv[])
 			line_number++;
 			if (fgets(buffer, 100, pFile) == NULL)
 				break;
-			fun = strtok(buffer, " \n");
-			v = (strtok(NULL, " \n"));
-			if (((strcmp(fun , "push") == 0) && (v == NULL)))
-			{
-				fprintf(stderr, "L%u: usage: push integer", line_number);
-                		exit(EXIT_FAILURE);
-			}
-			else if (strtok(NULL, " \n"))
-			{
-                                fprintf(stderr, "L%u: usage: push integer", line_number);
-                                exit(EXIT_FAILURE);
-                        }
 
-			execute_instructions(instructions, fun, &stack, line_number);
+			exec_inst(instructions, buffer, line_number, stack);
 			/*if (strcmp(fun, "push") == 0)
 			*	push(&stack, line_number);
 			*else if (strcmp(fun, "pall") == 0)
