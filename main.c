@@ -85,8 +85,7 @@ int ex_inst(instruction_t *in, char *buf, unsigned int l_num
  */
 
 int main(int argc, char *argv[])
-{
-	FILE *pFile;
+{	FILE *pFile;
 	char buf[100];
 	stack_t *stack = NULL;
 	unsigned int l_num = 1;
