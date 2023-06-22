@@ -29,7 +29,7 @@ void swap(stack_t **stack, unsigned int l_num)
 		*stack = second;
 		return;
 	}
-	fprintf(stdout, "L%u: can't swap, stack too short", l_num);
+	fprintf(stderr, "L%u: can't swap, stack too short", l_num);
 	exit(EXIT_FAILURE);
 }
 
@@ -56,7 +56,7 @@ void add(stack_t **stack, unsigned int l_num)
 		*stack = second;
 		return;
 	}
-	fprintf(stdout, "L%u: can't add, stack too short", l_num);
+	fprintf(stderr, "L%u: can't add, stack too short", l_num);
 	exit(EXIT_FAILURE);
 }
 
@@ -84,7 +84,7 @@ void sub(stack_t **stack, unsigned int l_num)
 		*stack = second;
 		return;
 	}
-	fprintf(stdout, "L%u: can't sub, stack too short", l_num);
+	fprintf(stderr, "L%u: can't sub, stack too short", l_num);
 	exit(EXIT_FAILURE);
 }
 
@@ -105,7 +105,7 @@ void _div(stack_t **stack, unsigned int l_num)
 	{
 		second = current->next;
 		if (current->n == 0)
-		{	fprintf(stdout, "L%u: division by zero", l_num);
+		{	fprintf(stderr, "L%u: division by zero", l_num);
 			exit(EXIT_FAILURE);
 		}
 		second->n = (second->n / current->n);
@@ -115,8 +115,8 @@ void _div(stack_t **stack, unsigned int l_num)
 		*stack = second;
 		return;
 	}
-fprintf(stdout, "L%u: can't div, stack too short", l_num);
-exit(EXIT_FAILURE);
+	fprintf(stderr, "L%u: can't div, stack too short", l_num);
+	exit(EXIT_FAILURE);
 }
 
 /**
@@ -142,7 +142,7 @@ void _mul(stack_t **stack, unsigned int l_num)
 		*stack = second;
 		return;
 	}
-		fprintf(stdout, "L%u: can't div, stack too short", l_num);
-		exit(EXIT_FAILURE);
+	fprintf(stderr, "L%u: can't div, stack too short", l_num);
+	exit(EXIT_FAILURE);
 }
 

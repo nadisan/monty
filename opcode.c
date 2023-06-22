@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "monty.h"
-#include <stdlib.h>
+
 
 
 /**
@@ -19,6 +19,7 @@ void push(stack_t **stack, unsigned int l_num)
 	if (new_node == NULL)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
+		free(stack);
 		exit(EXIT_FAILURE);
 	}
 	new_node->n = l_num;
@@ -64,7 +65,8 @@ void pint(stack_t **stack, unsigned int l_num)
 		fprintf(stdout, "%d\n", current->n);
 		return;
 	}
-	fprintf(stdout, "L%u: can't pint, stack empty", l_num);
+	fprintf(stderr, "L%u: can't pint, stack empty", l_num);
+	free(stack);
 	exit(EXIT_FAILURE);
 
 }
@@ -90,7 +92,7 @@ void pop(stack_t **stack, unsigned int l_num)
 		free(current);
 		return;
 	}
-	fprintf(stdout, "L%u: can't pop, stack empty", l_num);
+	fprintf(stderr, "L%u: can't pop, stack empty", l_num);
 	exit(EXIT_FAILURE);
 }
 
