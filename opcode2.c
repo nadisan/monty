@@ -51,10 +51,51 @@ void pchar(stack_t **stack, unsigned int l_num)
 	if (current != NULL)
 	{
 		ch = current->n;
-		fprintf(stdout, "%c\n", ch);
-		return;
+		if (ch > 31 && ch < 127)
+		{	fprintf(stdout, "%c\n", ch);
+			return;
+		}
+		fprintf(stderr, "L%u: can't pchar, value out of range", l_num);
+		exit(EXIT_FAILURE);
 	}
 		fprintf(stderr, "L%u: can't pchar, stack empty", l_num);
 		exit(EXIT_FAILURE);
 }
 
+/**
+ * pstr - multiply the first two top elemnt and replace them on the stack
+ * @stack: stack linked list
+ * @l_num: number to insert on stack
+ *
+ */
+
+
+void pstr(stack_t **stack, unsigned int l_num)
+{
+	stack_t *current = *stack;
+	char ch;
+
+	if (current == NULL)
+	{
+		fprintf(stderr, "L%u: can't pchar, stack empty", l_num);
+		fre(*stack);
+		exit(EXIT_FAILURE);
+	}
+	while (current != NULL)
+	{
+		ch = current->n;
+		if (ch > 31 && ch < 127)
+			fprintf(stdout, "%c", ch);
+		else if (ch == 0)
+		{	fprintf(stdout, "\n");
+			return;
+		}
+		else
+		{	fprintf(stderr, "L%u: can't pchar, value out of range", l_num);
+			fre(*stack);
+			exit(EXIT_FAILURE);
+		}
+		current = current->next;
+	}
+	fprintf(stdout, "\n");
+}

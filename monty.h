@@ -47,6 +47,7 @@ void _div(stack_t **stack, unsigned int l_num);
 void _mul(stack_t **stack, unsigned int l_num);
 void _mod(stack_t **stack, unsigned int l_num);
 void pchar(stack_t **stack, unsigned int l_num);
+void pstr(stack_t **stack, unsigned int l_num);
 void fre(stack_t *stack);
 int ex_inst(instruction_t *in, char *buf, unsigned int l_num, stack_t **stack);
 int rfile(char *argv[], instruction_t *in);
