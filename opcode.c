@@ -19,7 +19,7 @@ void push(stack_t **stack, unsigned int l_num)
 	if (new_node == NULL)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
-		free(stack);
+		fre(*stack);
 		exit(EXIT_FAILURE);
 	}
 	new_node->n = l_num;
@@ -66,7 +66,7 @@ void pint(stack_t **stack, unsigned int l_num)
 		return;
 	}
 	fprintf(stderr, "L%u: can't pint, stack empty", l_num);
-	free(stack);
+	fre(*stack);
 	exit(EXIT_FAILURE);
 
 }
@@ -92,6 +92,7 @@ void pop(stack_t **stack, unsigned int l_num)
 		free(current);
 		return;
 	}
+	fre(*stack);
 	fprintf(stderr, "L%u: can't pop, stack empty", l_num);
 	exit(EXIT_FAILURE);
 }

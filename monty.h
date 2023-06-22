@@ -33,6 +33,8 @@ typedef struct instruction_s
 	char *opcode;
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
+instruction_t *in;
+FILE *pFile;
 
 void pall(stack_t **stack, unsigned int line_number);
 void push(stack_t **stack, unsigned int line_number);
@@ -45,6 +47,9 @@ void _div(stack_t **stack, unsigned int l_num);
 void _mul(stack_t **stack, unsigned int l_num);
 void _mod(stack_t **stack, unsigned int l_num);
 void pchar(stack_t **stack, unsigned int l_num);
+void fre(stack_t *stack);
+int ex_inst(instruction_t *in, char *buf, unsigned int l_num, stack_t **stack);
+int rfile(char *argv[], instruction_t *in);
 
 /**
  * nop - Does nothing
