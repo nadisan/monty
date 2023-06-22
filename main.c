@@ -8,11 +8,13 @@
 /**
  * fre - prints all stack elements
  * @stack: stack linked list
+ * @pFile: file
  */
-void fre(stack_t *stack)
+void fre(stack_t *stack, FILE *pFile)
 {
 	stack_t *temp = NULL;
 
+	fclose(pFile);
 	while (stack)
 	{
 		temp = stack;
@@ -29,10 +31,11 @@ void fre(stack_t *stack)
  * @stack: stack linked list
  * @l_num: number to insert on stack
  * @buf: line from file
- *
+ * @pFile: command file
  */
 
-void ex_inst(instruction_t *in, char *buf, unsigned int l_num, stack_t **stack)
+void ex_inst(instruction_t *in, char *buf, unsigned int l_num
+		, stack_t **stack, FILE *pFile)
 {
 	unsigned int i = 0, num;
 	char *fun[2];
@@ -49,20 +52,21 @@ void ex_inst(instruction_t *in, char *buf, unsigned int l_num, stack_t **stack)
 		{
 			if (i == 0)
 			{
-				if (fun[1] == NULL)
-				{	fprintf(stderr, "L%u: usage: push integer\n", l_num);
-					exit(EXIT_FAILURE);
-				}
-				if (strcmp(fun[1], "0") == 0)
-					num = 0;
-				else
-				{	num = strtol(fun[1], &pEnd, 10);
-					if (num == 0)
-					{	fprintf(stderr, "L%u: usage: push integer\n", l_num);
-						exit(EXIT_FAILURE);
+				if (fun[1] != NULL)
+				{
+					if (strcmp(fun[1], "0") == 0)
+					{	in[i].f(stack, 0);
+						return;
+					}
+					num = strtol(fun[1], &pEnd, 10);
+					if (num != 0)
+					{	in[i].f(stack, num);
+						return;
 					}
 				}
-				in[i].f(stack, num);
+				fre(*stack, pFile);
+				fprintf(stderr, "L%u: usage: push integer\n", l_num);
+				exit(EXIT_FAILURE);
 			}
 			else
 				in[i].f(stack, l_num);
@@ -71,7 +75,7 @@ void ex_inst(instruction_t *in, char *buf, unsigned int l_num, stack_t **stack)
 		i++;
 	}
 	fprintf(stderr, "L%u: unknown instruction %s\n", l_num, fun[0]);
-	fre(*stack);
+	fre(*stack, pFile);
 	exit(EXIT_FAILURE);
 }
 
@@ -117,11 +121,10 @@ int main(int argc, char *argv[])
 	{
 		while (fgets(buf, 100, pFile))
 		{
-			ex_inst(in, buf, l_num, &stack);
+			ex_inst(in, buf, l_num, &stack, pFile);
 			l_num++;
 		}
 	}
-	fclose(pFile);
-	fre(stack);
+	fre(stack, pFile);
 	return (0);
 }
