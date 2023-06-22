@@ -41,20 +41,27 @@ void ex_inst(instruction_t *in, char *buf, unsigned int l_num, stack_t **stack)
 	fun[0] = strtok(buf, " \n");
 	fun[1] = strtok(NULL, " \n");
 
-
+	if (fun[0] == NULL)
+		return;
 	while (in[i].opcode != NULL)
 	{
 		if (strcmp(in[i].opcode, fun[0]) == 0)
 		{
-
 			if (i == 0)
 			{
 				if (fun[1] == NULL)
-				{
-					fprintf(stderr, "L%u: usage: push integer\n", l_num);
+				{	fprintf(stderr, "L%u: usage: push integer\n", l_num);
 					exit(EXIT_FAILURE);
 				}
-				num = strtol(fun[1], &pEnd, 10);
+				if (strcmp(fun[1], "0") == 0)
+					num = 0;
+				else
+				{	num = strtol(fun[1], &pEnd, 10);
+					if (num == 0)
+					{	fprintf(stderr, "L%u: usage: push integer\n", l_num);
+						exit(EXIT_FAILURE);
+					}
+				}
 				in[i].f(stack, num);
 			}
 			else
