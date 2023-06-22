@@ -85,6 +85,6 @@ void sub(stack_t **stack, unsigned int l_num)
 		*stack = second;
 		return;
 	}
-	fprintf(stdout, "L%u:  can't add, stack too short", l_num);
+	fprintf(stdout, "L%u:  can't sub, stack too short", l_num);
 	exit(EXIT_FAILURE);
 }
