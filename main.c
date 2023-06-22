@@ -81,10 +81,10 @@ int ex_inst(instruction_t *in, char *buf, unsigned int l_num
  * main- executes command from argument
  * @argc: number of command
  * @argv: operation and command file
- *
+ * Return: 0 if sucess
  */
 
-void main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
 	FILE *pFile;
 	char buf[100];
@@ -126,4 +126,5 @@ void main(int argc, char *argv[])
 		}
 	}
 	fre(stack, pFile);
+	return (0);
 }
