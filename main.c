@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <string.h>
 #include "monty.h"
-#include <stdlib.h>
 #include <ctype.h>
 
 
@@ -91,7 +90,6 @@ int main(int argc, char *argv[])
 	FILE *pFile;
 	char buf[100];
 	stack_t *stack = NULL;
-
 	unsigned int l_num = 1;
 
 	instruction_t in[] = {
@@ -102,6 +100,7 @@ int main(int argc, char *argv[])
 		{"swap", swap},
 		{"add", add},
 		{"sub", sub},
+		{"div", _div},
 		{"nop", nop},
 		{NULL, NULL}
 	};
