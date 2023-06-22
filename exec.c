@@ -80,6 +80,7 @@ int ex_inst(instruction_t *in, char *buf, unsigned int l_num, stack_t **stack)
  * rfile- read file
  * @argv: operation and command file
  * Return: 0 if sucess
+ * @in: instruction_t
  */
 
 int rfile(char *argv[], instruction_t *in)
