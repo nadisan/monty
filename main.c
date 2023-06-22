@@ -44,7 +44,7 @@ int ex_inst(instruction_t *in, char *buf, unsigned int l_num
 	fun[0] = strtok(buf, " \n");
 	fun[1] = strtok(NULL, " \n");
 
-	if (fun[0] == NULL)
+	if (fun[0] == NULL || (fun[0][0] == 35))
 		return (0);
 	while (in[i].opcode != NULL)
 	{
@@ -81,11 +81,10 @@ int ex_inst(instruction_t *in, char *buf, unsigned int l_num
  * main- executes command from argument
  * @argc: number of command
  * @argv: operation and command file
- * Return: 0 on success
  *
  */
 
-int main(int argc, char *argv[])
+void main(int argc, char *argv[])
 {
 	FILE *pFile;
 	char buf[100];
@@ -111,8 +110,7 @@ int main(int argc, char *argv[])
 	{	fprintf(stderr, "USAGE: monty file\n");
 		exit(EXIT_FAILURE);
 	}
-	else
-		pFile = fopen(argv[1], "r");
+	pFile = fopen(argv[1], "r");
 	if (pFile == NULL)
 	{	fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
 		exit(EXIT_FAILURE);
@@ -121,13 +119,11 @@ int main(int argc, char *argv[])
 	{
 		while (fgets(buf, 100, pFile))
 		{
-			if (ex_inst(in, buf, l_num, &stack))
+			if (ex_inst(in, buf, l_num++, &stack))
 			{	fre(stack, pFile);
 				exit(EXIT_FAILURE);
 			}
-			l_num++;
 		}
 	}
 	fre(stack, pFile);
-	return (0);
 }
