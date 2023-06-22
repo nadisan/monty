@@ -89,7 +89,7 @@ void sub(stack_t **stack, unsigned int l_num)
 }
 
 /**
- * div - prints z first stack elements
+ * _div - prints z first stack elements
  * @stack: stack linked list
  * @l_num: number to insert on stack
  *
@@ -98,23 +98,51 @@ void sub(stack_t **stack, unsigned int l_num)
 
 void _div(stack_t **stack, unsigned int l_num)
 {
-        stack_t *current = *stack;
-        stack_t *second = NULL;
+	stack_t *current = *stack;
+	stack_t *second = NULL;
 
-        if (current != NULL &&  current->next)
-        {
-                second = current->next;
+	if (current != NULL &&  current->next)
+	{
+		second = current->next;
 		if (current->n == 0)
 		{	fprintf(stdout, "L%u: division by zero", l_num);
 			exit(EXIT_FAILURE);
 		}
-                second->n = (second->n / current->n);
-                free(current);
-                current = NULL;
-                second->prev = NULL;
-                *stack = second;
-                return;
-        }
-        fprintf(stdout, "L%u: can't div, stack too short", l_num);
-        exit(EXIT_FAILURE);
+		second->n = (second->n / current->n);
+		free(current);
+		current = NULL;
+		second->prev = NULL;
+		*stack = second;
+		return;
+	}
+fprintf(stdout, "L%u: can't div, stack too short", l_num);
+exit(EXIT_FAILURE);
 }
+
+/**
+ * _mul - multiply the first two top elemnt and replace them on the stack
+ * @stack: stack linked list
+ * @l_num: number to insert on stack
+ *
+ */
+
+
+void _mul(stack_t **stack, unsigned int l_num)
+{
+	stack_t *current = *stack;
+	stack_t *second = NULL;
+
+	if (current != NULL &&  current->next)
+	{
+		second = current->next;
+		second->n = (second->n * current->n);
+		free(current);
+		current = NULL;
+		second->prev = NULL;
+		*stack = second;
+		return;
+	}
+		fprintf(stdout, "L%u: can't div, stack too short", l_num);
+		exit(EXIT_FAILURE);
+}
+
