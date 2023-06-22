@@ -54,7 +54,7 @@ void ex_inst(instruction_t *in, char *buf, unsigned int l_num, stack_t **stack)
 					fprintf(stderr, "L%u: usage: push integer\n", l_num);
 					exit(EXIT_FAILURE);
 				}
-				num = strtol(fun[1],&pEnd,10);
+				num = strtol(fun[1], &pEnd, 10);
 				in[i].f(stack, num);
 			}
 			else
@@ -93,7 +93,7 @@ int main(int argc, char *argv[])
 		{"pop", pop},
 		{"swap", swap},
 		{"add", add},
-		{"nop", nop},
+		{"nop", NULL},
 		{NULL, NULL}
 	};
 	if (argc != 2)

@@ -78,31 +78,18 @@ void pint(stack_t **stack, unsigned int l_num)
 
 void pop(stack_t **stack, unsigned int l_num)
 {
-        stack_t *current = *stack;
-	stack_t *second ;
+	stack_t *current = *stack;
+	stack_t *second;
 
-        if (current != NULL && l_num != 0)
-        {
+	if (current != NULL && l_num != 0)
+	{
 		second = current->next;
 		if (second)
 			second->prev = NULL;
 		*stack = second;
 		free(current);
 		return;
-        }
-        fprintf(stdout, "L%u: can't pop, stack empty", l_num);
-        exit(EXIT_FAILURE);
-
-}
-
-/**
- * nop - does nothing
- * @stack: stack linked list
- * @l_num: number to insert on stack
- *
- */
-
-void nop( )
-{
-	return;
+	}
+	fprintf(stdout, "L%u: can't pop, stack empty", l_num);
+	exit(EXIT_FAILURE);
 }

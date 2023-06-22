@@ -14,11 +14,11 @@
 
 void swap(stack_t **stack, unsigned int l_num)
 {
-        stack_t *temp = *stack;
+	stack_t *temp = *stack;
 	stack_t *first = *stack;
 	stack_t *second = NULL;
 
-        if (first != NULL &&  first->next)
+	if (first != NULL &&  first->next)
 	{	second = first->next;
 		temp = second->next;
 		if (temp)
@@ -28,11 +28,10 @@ void swap(stack_t **stack, unsigned int l_num)
 		second->next = first;
 		second->prev = NULL;
 		*stack = second;
-                return;
-        }
-        fprintf(stdout, "L%u:  can't swap, stack too short", l_num);
-        exit(EXIT_FAILURE);
-
+		return;
+	}
+	fprintf(stdout, "L%u:  can't swap, stack too short", l_num);
+	exit(EXIT_FAILURE);
 }
 
 /**
@@ -45,20 +44,20 @@ void swap(stack_t **stack, unsigned int l_num)
 
 void add(stack_t **stack, unsigned int l_num)
 {
-        stack_t *current = *stack;
-        stack_t *second = NULL;
+	stack_t *current = *stack;
+	stack_t *second = NULL;
 
-        if (current != NULL && l_num != 0 &&  current->next)
-        {       second = current->next;
+	if (current != NULL && l_num != 0 &&  current->next)
+	{
+		second = current->next;
 		second->n = (second->n + current->n);
 		free(current);
 		current = NULL;
 		second->prev = NULL;
 		*stack = second;
-                return;
-        }
-        fprintf(stdout, "L%u:  can't add, stack too short", l_num);
-        exit(EXIT_FAILURE);
-
+		return;
+	}
+	fprintf(stdout, "L%u:  can't add, stack too short", l_num);
+	exit(EXIT_FAILURE);
 }
 
