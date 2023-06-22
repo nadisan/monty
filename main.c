@@ -31,11 +31,12 @@ void fre(stack_t *stack, FILE *pFile)
  * @stack: stack linked list
  * @l_num: number to insert on stack
  * @buf: line from file
- * @pFile: command file
+ *
+ * Return: 1 for errors, and 0 for none
  */
 
-void ex_inst(instruction_t *in, char *buf, unsigned int l_num
-		, stack_t **stack, FILE *pFile)
+int ex_inst(instruction_t *in, char *buf, unsigned int l_num
+		, stack_t **stack)
 {
 	unsigned int i = 0, num;
 	char *fun[2];
@@ -45,7 +46,7 @@ void ex_inst(instruction_t *in, char *buf, unsigned int l_num
 	fun[1] = strtok(NULL, " \n");
 
 	if (fun[0] == NULL)
-		return;
+		return (0);
 	while (in[i].opcode != NULL)
 	{
 		if (strcmp(in[i].opcode, fun[0]) == 0)
@@ -56,27 +57,24 @@ void ex_inst(instruction_t *in, char *buf, unsigned int l_num
 				{
 					if (strcmp(fun[1], "0") == 0)
 					{	in[i].f(stack, 0);
-						return;
+						return (0);
 					}
 					num = strtol(fun[1], &pEnd, 10);
 					if (num != 0)
 					{	in[i].f(stack, num);
-						return;
+						return (0);
 					}
 				}
-				fre(*stack, pFile);
 				fprintf(stderr, "L%u: usage: push integer\n", l_num);
-				exit(EXIT_FAILURE);
+				return (1);
 			}
-			else
-				in[i].f(stack, l_num);
-			return;
+			in[i].f(stack, l_num);
+			return (0);
 		}
 		i++;
 	}
 	fprintf(stderr, "L%u: unknown instruction %s\n", l_num, fun[0]);
-	fre(*stack, pFile);
-	exit(EXIT_FAILURE);
+	return (1);
 }
 
 
@@ -94,7 +92,6 @@ int main(int argc, char *argv[])
 	char buf[100];
 	stack_t *stack = NULL;
 
-	/*char *opcode = NULL;	*/
 	unsigned int l_num = 1;
 
 	instruction_t in[] = {
@@ -104,6 +101,7 @@ int main(int argc, char *argv[])
 		{"pop", pop},
 		{"swap", swap},
 		{"add", add},
+		{"sub", sub},
 		{"nop", nop},
 		{NULL, NULL}
 	};
@@ -121,7 +119,10 @@ int main(int argc, char *argv[])
 	{
 		while (fgets(buf, 100, pFile))
 		{
-			ex_inst(in, buf, l_num, &stack, pFile);
+			if (ex_inst(in, buf, l_num, &stack))
+			{	fre(stack, pFile);
+				exit(EXIT_FAILURE);
+			}
 			l_num++;
 		}
 	}

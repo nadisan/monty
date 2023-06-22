@@ -61,3 +61,30 @@ void add(stack_t **stack, unsigned int l_num)
 	exit(EXIT_FAILURE);
 }
 
+
+/**
+ * sub - prints z first stack elements
+ * @stack: stack linked list
+ * @l_num: number to insert on stack
+ *
+ */
+
+
+void sub(stack_t **stack, unsigned int l_num)
+{
+	stack_t *current = *stack;
+	stack_t *second = NULL;
+
+	if (current != NULL && l_num != 0 &&  current->next)
+	{
+		second = current->next;
+		second->n = (second->n - current->n);
+		free(current);
+		current = NULL;
+		second->prev = NULL;
+		*stack = second;
+		return;
+	}
+	fprintf(stdout, "L%u:  can't add, stack too short", l_num);
+	exit(EXIT_FAILURE);
+}
