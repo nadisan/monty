@@ -100,7 +100,7 @@ void rotl(stack_t **stack, __attribute__((unused)) unsigned int l_num)
 {
 	stack_t *top = *stack;
 	stack_t *end = NULL;
-
+	
 	if (top && top->next)
 	{
 		end = top->next;
@@ -115,8 +115,8 @@ void rotl(stack_t **stack, __attribute__((unused)) unsigned int l_num)
 		top->next = NULL;
 		return;
 	}
-	else
-		return;
+	fprintf(stdout, "0\n");
+	return;
 }
 
 /**
