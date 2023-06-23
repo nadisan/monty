@@ -114,8 +114,8 @@ void rotl(stack_t **stack, __attribute__((unused)) unsigned int l_num)
 		top->prev = end;
 		top->next = NULL;
 	}
-	fprintf(stdout, "0\n");
-	return;
+	else 
+		fprintf(stdout, "0\n");
 }
 
 /**
