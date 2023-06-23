@@ -75,12 +75,12 @@ void pstr(stack_t **stack, unsigned int l_num)
 	stack_t *current = *stack;
 	char ch;
 
-	while (current != NULL)
+	while (current != NULL && l_num !=0)
 	{
 		ch = current->n;
 		if (ch > 31 && ch < 127)
 			fprintf(stdout, "%c", ch);
-		else if (ch == 0 && ch > 128 )
+		else 
 		{	fprintf(stdout, "\n");
 			return;
 		}
