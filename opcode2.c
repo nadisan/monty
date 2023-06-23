@@ -144,6 +144,5 @@ void rotr(stack_t **stack, __attribute__((unused)) unsigned int l_num)
 		end->next = top;
 		end->prev = NULL;
 		*stack = end;
-		return;
 	}
 }
