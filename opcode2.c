@@ -77,27 +77,20 @@ void pstr(stack_t **stack, unsigned int l_num)
 
 	if (current == NULL)
 	{
-		fprintf(stderr, "L%u: can't pchar, stack empty\n", l_num);
-		fre(*stack);
-		exit(EXIT_FAILURE);
+		fprintf(stdout, "\n");
+		return;
 	}
 	while (current != NULL)
 	{
 		ch = current->n;
 		if (ch > 31 && ch < 127)
 			fprintf(stdout, "%c", ch);
-		else if (ch == 0)
-		{	fprintf(stdout, "\n");
-			return;
-		}
 		else
-		{	fprintf(stderr, "L%u: can't pchar, value out of range\n", l_num);
-			fre(*stack);
-			exit(EXIT_FAILURE);
-		}
+			return;
 		current = current->next;
 	}
 	fprintf(stdout, "\n");
+	printf("%u", l_num);
 }
 
 /**
