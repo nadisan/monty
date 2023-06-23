@@ -94,7 +94,7 @@ void pop(stack_t **stack, unsigned int l_num)
 		return;
 	}
 	fre(*stack);
-	fprintf(stderr, "L%u: can't pop, stack empty", l_num);
+	fprintf(stderr, "L%u: can't pop an empty stack", l_num);
 	exit(EXIT_FAILURE);
 }
 
