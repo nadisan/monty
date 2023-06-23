@@ -65,7 +65,7 @@ void pint(stack_t **stack, unsigned int l_num)
 		fprintf(stdout, "%d\n", current->n);
 		return;
 	}
-	fprintf(stderr, "L%u: can't pint, stack empty", l_num);
+	fprintf(stderr, "L%u: can't pint, stack empty\n", l_num);
 
 	fre(*stack);
 	exit(EXIT_FAILURE);
@@ -94,7 +94,7 @@ void pop(stack_t **stack, unsigned int l_num)
 		return;
 	}
 	fre(*stack);
-	fprintf(stderr, "L%u: can't pop an empty stack", l_num);
+	fprintf(stderr, "L%u: can't pop an empty stack\n", l_num);
 	exit(EXIT_FAILURE);
 }
 
