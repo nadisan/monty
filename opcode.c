@@ -65,7 +65,7 @@ void pint(stack_t **stack, unsigned int l_num)
 		fprintf(stdout, "%d\n", current->n);
 		return;
 	}
-	fprintf(stderr, "L%u: can't pint, stack empty", l_num);
+	fprintf(stderr, "L%u: can't pint, stack empty ", l_num);
 
 	fre(*stack);
 	exit(EXIT_FAILURE);
