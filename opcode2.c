@@ -21,7 +21,7 @@ void _mod(stack_t **stack, unsigned int l_num)
 	{
 		second = current->next;
 		if (current->n == 0)
-		{	fprintf(stderr, "L%u: division by zero", l_num);
+		{	fprintf(stderr, "L%u: division by zero\n", l_num);
 			exit(EXIT_FAILURE);
 		}
 		second->n = (second->n % current->n);
@@ -31,7 +31,7 @@ void _mod(stack_t **stack, unsigned int l_num)
 		*stack = second;
 		return;
 	}
-	fprintf(stderr, "L%u: can't mod, stack too short", l_num);
+	fprintf(stderr, "L%u: can't mod, stack too short\n", l_num);
 	exit(EXIT_FAILURE);
 }
 
@@ -55,10 +55,10 @@ void pchar(stack_t **stack, unsigned int l_num)
 		{	fprintf(stdout, "%c\n", ch);
 			return;
 		}
-		fprintf(stderr, "L%u: can't pchar, value out of range", l_num);
+		fprintf(stderr, "L%u: can't pchar, value out of range\n", l_num);
 		exit(EXIT_FAILURE);
 	}
-		fprintf(stderr, "L%u: can't pchar, stack empty", l_num);
+		fprintf(stderr, "L%u: can't pchar, stack empty\n", l_num);
 		exit(EXIT_FAILURE);
 }
 
@@ -77,7 +77,7 @@ void pstr(stack_t **stack, unsigned int l_num)
 
 	if (current == NULL)
 	{
-		fprintf(stderr, "L%u: can't pchar, stack empty", l_num);
+		fprintf(stderr, "L%u: can't pchar, stack empty\n", l_num);
 		fre(*stack);
 		exit(EXIT_FAILURE);
 	}
@@ -91,11 +91,57 @@ void pstr(stack_t **stack, unsigned int l_num)
 			return;
 		}
 		else
-		{	fprintf(stderr, "L%u: can't pchar, value out of range", l_num);
+		{	fprintf(stderr, "L%u: can't pchar, value out of range\n", l_num);
 			fre(*stack);
 			exit(EXIT_FAILURE);
 		}
 		current = current->next;
 	}
 	fprintf(stdout, "\n");
+}
+
+void rotl(stack_t **stack, __attribute__((unused)) unsigned int l_num)
+{
+	stack_t *top = *stack;
+	stack_t *end = NULL;
+
+	if (top && top->next)
+	{
+		end = top->next;
+		end->prev = NULL;
+		*stack = end;
+		while (end->next)
+		{
+			end = end->next;
+		}
+		end->next = top;
+		top->prev = end;
+		top->next = NULL;
+		return;
+	}
+
+}
+
+
+void rotr(stack_t **stack, __attribute__((unused)) unsigned int l_num)
+{
+	stack_t *top = *stack;
+	stack_t *nend = NULL;
+	stack_t *end = NULL;
+
+	if (top && top->next)
+	{
+		nend = top->next;
+		while (nend->next->next)
+		{
+			nend = nend->next;
+		}
+		end = nend->next;
+		nend->next = NULL;
+		top->prev = end;
+		end->next = top;
+		end->prev = NULL;
+		*stack = end;
+		return;
+	}
 }
