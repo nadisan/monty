@@ -142,7 +142,7 @@ void _mul(stack_t **stack, unsigned int l_num)
 		*stack = second;
 		return;
 	}
-	fprintf(stderr, "L%u: can't div, stack too short\n", l_num);
+	fprintf(stderr, "L%u: can't mul, stack too short\n", l_num);
 	exit(EXIT_FAILURE);
 }
 
