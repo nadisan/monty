@@ -100,6 +100,13 @@ void pstr(stack_t **stack, unsigned int l_num)
 	fprintf(stdout, "\n");
 }
 
+/**
+ * rotl - shuffle top elemnt to bottom of stack
+ * @stack: stack linked list
+ * @l_num: number to insert on stack
+ *
+ */
+
 void rotl(stack_t **stack, __attribute__((unused)) unsigned int l_num)
 {
 	stack_t *top = *stack;
@@ -122,6 +129,12 @@ void rotl(stack_t **stack, __attribute__((unused)) unsigned int l_num)
 
 }
 
+/**
+ * rotr - shuffle bottom elemnt to top
+ * @stack: stack linked list
+ * @l_num: number to insert on stack
+ *
+ */
 
 void rotr(stack_t **stack, __attribute__((unused)) unsigned int l_num)
 {
