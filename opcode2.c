@@ -75,12 +75,12 @@ void pstr(stack_t **stack, unsigned int l_num)
 	stack_t *current = *stack;
 	char ch;
 
-	while (current != NULL && l_num !=0)
+	while (current != NULL && l_num != 0)
 	{
 		ch = current->n;
 		if (ch > 31 && ch < 127)
 			fprintf(stdout, "%c", ch);
-		else 
+		else
 		{	fprintf(stdout, "\n");
 			return;
 		}
@@ -100,22 +100,17 @@ void rotl(stack_t **stack, __attribute__((unused)) unsigned int l_num)
 {
 	stack_t *top = *stack;
 	stack_t *end = NULL;
-	
-	if (top && top->next)
-	{
-		end = top->next;
-		end->prev = NULL;
-		*stack = end;
-		while (end->next)
-		{
-			end = end->next;
-		}
-		end->next = top;
-		top->prev = end;
-		top->next = NULL;
-	}
-	else 
-		fprintf(stdout, "0\n");
+
+	if (!top && !(top->next))
+		return;
+	end = top->next;
+	end->prev = NULL;
+	*stack = end;
+	while (end->next)
+		end = end->next;
+	end->next = top;
+	top->prev = end;
+	top->next = NULL;
 }
 
 /**
@@ -131,19 +126,15 @@ void rotr(stack_t **stack, __attribute__((unused)) unsigned int l_num)
 	stack_t *nend = NULL;
 	stack_t *end = NULL;
 
-	if (top && top->next)
-	{
-		nend = top->next;
-		while (nend->next->next)
-		{
-			nend = nend->next;
-		}
-		end = nend->next;
-		nend->next = NULL;
-		top->prev = end;
-		end->next = top;
-		end->prev = NULL;
-		*stack = end;
-	}
-	return;
+	if (!top && !(top->next))
+		return;
+	nend = top->next;
+	while (nend->next->next)
+		nend = nend->next;
+	end = nend->next;
+	nend->next = NULL;
+	top->prev = end;
+	end->next = top;
+	end->prev = NULL;
+	*stack = end;	
 }
