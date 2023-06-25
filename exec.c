@@ -57,6 +57,8 @@ int ex_inst(instruction_t *in, char *buf, unsigned int l_num, stack_t **stack)
 					{	in[i].f(stack, 0);
 						return (0);
 					}
+					if ((fun[1][0]) == 45)
+						fun[1] = fun[1] + 1;
 					num = strtol(fun[1], &pEnd, 10);
 					if (num != 0)
 					{	in[i].f(stack, num);
